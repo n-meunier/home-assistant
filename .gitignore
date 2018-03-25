@@ -1,4 +1,3 @@
-*
 !*.yaml
 !scenes
 !.gitignore
@@ -6,3 +5,7 @@
 secrets.yaml
 known_devices.yaml
 entity_registry.yaml
+home-assistant.log
+home-assistant_v2.db
+plex.conf
+tools/
