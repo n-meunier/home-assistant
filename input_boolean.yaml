@@ -1,0 +1,3 @@
+trigger_night:
+    name: Night status based on lumens
+    icon: mdi:theme-light-dark

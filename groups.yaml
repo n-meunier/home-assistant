@@ -1,0 +1,109 @@
+#######################################
+#          Views                      #
+#######################################
+default_view:
+  name: Home
+  view: yes
+  entities:
+    - sun.sun
+    - group.security
+    - group.desk
+    - weather.openweathermap
+    - group.mobiles
+    - sensor.plex
+
+sensor_view:
+  name: Sensors
+  view: yes
+  icon: mdi:gauge
+  entities:
+    - group.temperature
+    - group.motion_sensors
+    - group.doors_windows
+    - group.lights
+    - group.switchs
+    - group.home_devices
+
+#######################################
+#          Sensors groups             #
+#######################################
+temperature:
+  name: Humidity & Temperature
+  entities:
+    - sensor.temperature_indoor
+    - sensor.humidity_indoor
+    - sensor.temperature_outdoor
+    - sensor.humidity_outdoor
+
+motion_sensors:
+  name: Motion
+  entities:
+    - binary_sensor.motion_sensor
+
+switchs:
+  name: Commands
+  entities:
+    - binary_sensor.switch
+    - switch.ac_gateway
+
+lights:
+  name: Lights
+  entities:
+    - light.gateway_light
+    #Xiaomi Gateway Led Ring
+    - light.bedside_lamp
+    - sensor.illumination
+
+doors_windows:
+  name: Doors & Windows
+  entities:
+    - binary_sensor.door_window_sensor
+
+#######################################
+#          Localization groups        #
+#######################################
+security:
+  name: Security
+  entities:
+    - binary_sensor.motion_sensor
+    - binary_sensor.door_window_sensor
+
+desk:
+  name: Home
+  entities:
+    - light.gateway_light
+    - light.bedside_lamp
+    - sensor.temperature_indoor
+    - sensor.humidity_indoor
+    - binary_sensor.switch  #bouton connecté
+    - sensor.illumination
+    - media_player.plex_web_chrome
+outdoor:
+  name: Outdoor
+  entities:
+    - sensor.temperature_outdoor
+    - sensor.humidity_outdoor
+
+#######################################
+#          Devices groups             #
+#######################################
+
+mobiles:
+  name: Mobile devices
+  entities:
+    - device_tracker.USER1_mac
+    - device_tracker.USER1_phone
+    - device_tracker.USER1_tablet
+
+home_devices:
+  name: Home devices
+  entities:
+    - device_tracker.USER1_mac
+    - device_tracker.USER1_phone
+    - device_tracker.USER1_tablet
+    - device_tracker.fire_stick
+    - device_tracker.ps4
+    - device_tracker.ac_gateway
+    - device_tracker.gateway
+    - device_tracker.bedside_lamp
+    - device_tracker.router_lan

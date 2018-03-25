@@ -1,0 +1,127 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude_val
+  longitude: !secret longitude_val
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation_val
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Asia/Tokyo
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# Tracked history is kept for 10 days
+recorder:
+  purge_keep_days: 10
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor:
+  - platform: yr
+weather:
+  - platform: openweathermap
+    api_key: !secret key_owm
+    monitored_conditions:
+      - weather
+      - temperature
+      - wind_speed
+      - humidity
+      - clouds
+      - rain
+      - snow
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+# nmap
+device_tracker:
+  - platform: nmap_tracker
+    hosts: !secret hosts_device_tracker
+    exclude:
+     - !secret exclude_device_tracker
+  - platform: bluetooth_tracker
+  - platform: owntracks
+
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+      - host: !secret host_ac_xiaomi_aqara
+        mac: !secret mac_ac_xiaomi_aqara
+        key: !secret key_ac_xiaomi_aqara
+      - host: !secret host_xiaomi_aqara
+        mac: !secret mac_xiaomi_aqara
+        key: !secret key_xiaomi_aqara
+light:
+  - platform: yeelight
+    devices:
+      !secret host_bedside_lamp:
+        name: Bedside Lamp
+        transition: 1000
+        use_music_mode: True # default to False
+        save_on_change: True # default to True
+
+media_player:
+  - platform: plex
+    entity_namespace: 'plex'
+    include_non_clients: true
+    scan_interval: 5
+    show_all_controls: true
+    use_custom_entity_ids: true
+    use_episode_art: true
+
+#######################################
+#          Includes                   #
+#######################################
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+input_boolean: !include input_boolean.yaml

@@ -1,0 +1,61 @@
+- alias: toggle lamp on long press
+  trigger: 
+    platform: event
+    event_type: click
+    event_data: 
+      entity_id: binary_sensor.switch_REDACTED
+      click_type: long_click_press
+  action:
+    service: switch.toggle
+    entity_id: light.bedside_lamp
+
+#######################################
+#          Night status               #
+#######################################
+- alias: enable night
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.illumination_REDACTED
+    below: 300
+  action:
+    service: homeassistant.turn_on
+    entity_id: input_boolean.trigger_night
+
+- alias: disable night
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.illumination_REDACTED
+    above: 500
+  action:
+    service: homeassistant.turn_off
+    entity_id: input_boolean.trigger_night
+
+#######################################
+#          Gateway light on mvt       #
+#######################################
+- alias: Turn on Gateway Light when there is movement
+  trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor_REDACTED
+      to: 'on'
+  condition:
+        condition: state
+        entity_id: input_boolean.trigger_night
+        state: 'on'
+  action:
+      service: homeassistant.turn_on
+      entity_id: light.gateway_light_REDACTED
+      data:
+        brightness: 255
+        rgb_color: [255,255,255]
+
+- alias: Turn off Gateway light 1 minute after last movement
+  trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor_REDACTED
+      to: 'off'
+      for:
+        minutes: 1
+  action:
+      service: homeassistant.turn_off
+      entity_id: light.gateway_light_REDACTED
