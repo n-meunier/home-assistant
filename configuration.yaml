@@ -10,6 +10,8 @@ homeassistant:
   unit_system: metric
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Asia/Tokyo
+  # Include Packages
+  packages: !include_dir_named packages
   # Customization file
   customize: !include customize.yaml
 
@@ -18,6 +20,45 @@ homeassistant:
 
 # Enables the frontend
 frontend:
+  themes:
+    darkblue:
+      primary-color: "#396FB6"
+      light-primary-color: "#77a0d4"
+      dark-primary-color: "#3539ce"
+      text-primary-color: "#ffffff"
+      primary-background-color: "#37464f"
+      sidebar-text_-_background: "#3c4348"
+      paper-card-background-color: "#263137"
+      paper-card-header-color: "var(--text-primary-color)"
+      secondary-background-color: "var(--primary-background-color)"
+      primary-text-color: "var(--text-primary-color)"
+      secondary-text-color: "var(--primary-color)"
+      paper-listbox-background-color: "var(--sidebar-text_-_background)"
+      paper-toggle-button-checked-ink-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-button-color: "var(--dark-primary-color)"
+      paper-toggle-button-checked-bar-color: "var(--dark-primary-color)"
+      paper-slider-knob-color: "var(--primary-color)"
+      paper-slider-knob-start-color: "var(--primary-color)"
+      paper-slider-pin-color: "var(--primary-color)"
+      paper-slider-active-color: "var(--primary-color)"
+      paper-slider-secondary-color: "var(--light-primary-color)"
+      paper-slider-container-color: "var(--sidebar-text_-_background)"
+      paper-progress-secondary-color: "var(--sidebar-text_-_background)"
+      paper-item-selected_-_background-color: "var(--primary-color)"
+      paper-item-icon_-_color: "var(--text-primary-color)"
+      paper-item-icon-color: "var(--text-primary-color)"
+      paper-item-icon-active-color: "var(--primary-color)"
+      paper-grey-50: "var(--sidebar-text_-_background)"
+      paper-grey-200: "var(--primary-background-color)"
+      label-badge-background-color: "var(--sidebar-text_-_background)"
+      label-badge-text-color: "var(--text-primary-color)"
+      label-badge-red: "var(--primary-color)"
+      label-badge-blue: "var(--light-primary-color)"
+      label-badge-green: "var(--dark-primary-color)"
+      label-badge-yellow: "var(--text-primary-color)"
+      label-badge-grey: "var(--paper-grey-500)"
+      table-row-background-color: "var(--paper-card-background-color)"
+      table-row-alternative-background-color: "var(--sidebar-text_-_background)"
 
 # Enables configuration UI
 config:
@@ -81,8 +122,21 @@ tts:
 # Cloud
 cloud:
 
-# nmap
+# Device Tracking
+# MQTT (Local Broker)
+mqtt:
+#  broker: !secret local_mqtt_broker
+#  port: !secret local_mqtt_port
+#  username: !secret local_mqtt_username
+#  password: !secret local_mqtt_password
+
+#   Owntracks
 device_tracker:
+## MQTT / Zanzito based device tracking
+#  - platform: mqtt_json
+#    devices:
+#      USER1_phone: zanzito/trent/location
+# NMAP Based Device Tracking
   - platform: nmap_tracker
     hosts: !secret hosts_device_tracker
     exclude:
@@ -122,6 +176,6 @@ media_player:
 #######################################
 
 group: !include groups.yaml
-automation: !include automations.yaml
+automation: !include_dir_merge_list includes/automation
 script: !include scripts.yaml
 input_boolean: !include input_boolean.yaml
