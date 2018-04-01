@@ -1,0 +1,95 @@
+- alias: Bed Room Button - Bedside Lamp toggle
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch
+      click_type: single
+  action:
+  - service: light.toggle
+    entity_id: light.bedside_lamp
+
+#######################################
+#          Night status               #
+#######################################
+- alias: enable night
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.illumination
+    below: 300
+  action:
+    service: homeassistant.turn_on
+    entity_id: input_boolean.trigger_night
+
+- alias: disable night
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.illumination
+    above: 500
+  action:
+    service: homeassistant.turn_off
+    entity_id: input_boolean.trigger_night
+
+#######################################
+#          Gateway light on mvt       #
+#######################################
+- alias: Turn on Gateway Light when there is movement
+  trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor
+      to: 'on'
+  condition:
+        condition: state
+        entity_id: input_boolean.trigger_night
+        state: 'on'
+  action:
+      service: homeassistant.turn_on
+      entity_id: light.gateway_light
+      data:
+        brightness: 255
+        rgb_color: [255,255,255]
+
+- alias: Turn off Gateway light 1 minute after last movement
+  trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 0
+  action:
+      service: homeassistant.turn_off
+      entity_id: light.gateway_light
+
+#######################################
+#          USER1 Home status       #
+#######################################
+- alias: USER1 is Home
+  trigger:
+      platform: state
+      entity_id: device_tracker.USER1_phone
+      from: 'not_home'
+      to: 'home'
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 0
+  action:
+      service: homeassistant.turn_on
+      entity_id: input_boolean.trigger_USER1_is_home
+
+- alias: USER1 is Away
+  trigger:
+      platform: state
+      entity_id: device_tracker.USER1_phone
+      from: 'home'
+      to: 'not_home'
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 0
+  action:
+      service: homeassistant.turn_off
+      entity_id: input_boolean.trigger_USER1_is_home
+

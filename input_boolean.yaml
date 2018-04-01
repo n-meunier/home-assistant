@@ -1,3 +1,6 @@
 trigger_night:
     name: Night status based on lumens
     icon: mdi:theme-light-dark
+trigger_USER1_is_home:
+    name: USER1 Home status
+    icon: mdi:home-account
