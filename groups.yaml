@@ -23,6 +23,8 @@ sensor_view:
     - group.lights
     - group.switchs
     - group.home_devices
+    - group.trash_schedule
+    - group.recycle_schedule
 
 #######################################
 #          Sensors groups             #
@@ -75,7 +77,6 @@ desk:
     - light.bedside_lamp
     - sensor.temperature_indoor
     - sensor.humidity_indoor
-    - binary_sensor.switch  #bouton connecté
     - sensor.illumination
     - media_player.plex_web_chrome
 outdoor:
