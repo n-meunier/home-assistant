@@ -15,5 +15,9 @@ Home Assistant Version: 0.65.5
 * [Xiaomi Bedside Lamp](https://www.mi.com/mj-bedsidelamp/)
 * [Plex Media Server](https://plex.tv)
 # Interface
+* Default View
 ![UI](images/ha_home.png)
+* Sensors View
 ![UI](images/ha_sensors.png)
+* Night Theme
+![UI](images/ha_night_theme.png)
