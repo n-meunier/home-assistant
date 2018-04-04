@@ -23,7 +23,11 @@ homeassistant:
     sensor.recycle_day:
       friendly_name: Is it Recycle Day today?
       icon: mdi:recycle
-    sensor.trash_pickup_day:
+    sensor.trash_pickup_day_1:
+      friendly_name: Trash Pickup Day
+      icon: mdi:calendar-today
+      hidden: true
+    sensor.trash_pickup_day_2:
       friendly_name: Trash Pickup Day
       icon: mdi:calendar-today
       hidden: true
@@ -47,8 +51,10 @@ group:
     control: hidden
     entities:
       - sensor.trash_day
-      - sensor.trash_pickup_day
-      - input_select.trash_pickup_day
+      - sensor.trash_pickup_day_1
+      - sensor.trash_pickup_day_2
+      - input_select.trash_pickup_day_1
+      - input_select.trash_pickup_day_2
 
   Recycle Schedule:
     control: hidden
@@ -76,8 +82,19 @@ group:
 #  UI Elements
 ###############################################################################
 input_select:
-  trash_pickup_day:
-    name: Current Trash Pickup Day (Evey Week)
+  trash_pickup_day_1:
+    name: Current Trash Pickup Day (Every Week)
+    options:
+     - Monday
+     - Tuesday
+     - Wednesday
+     - Thursday
+     - Friday
+     - Saturday
+     - Sunday
+    icon: mdi:delete-variant
+  trash_pickup_day_2:
+    name: Current Trash Pickup Day (Every Week)
     options:
      - Monday
      - Tuesday
@@ -166,7 +183,7 @@ sensor:
           {% set month = states.sensor.date__time.state.split(',')[0].split('-')[1] %}
           {% set date = states.sensor.date__time.state.split(',')[0].split('-')[2] %}
           {% set today = strptime(year ~ '-' ~ month ~ '-' ~ date , '%Y-%m-%d') %}
-          {%- set pickupDay = states.sensor.trash_pickup_day.state | lower -%}
+          {%- set pickupDay = states.sensor.trash_pickup_day_1.state | lower -%}
           {%- if as_timestamp(today)| timestamp_custom('%A', true) | lower == pickupDay -%}
             yes
           {%- else -%}
@@ -257,13 +274,16 @@ automation:
     hide_entity: true
     trigger:
     - platform: state
-      entity_id: input_select.trash_pickup_day
+      entity_id: input_select.trash_pickup_day_1
+    - platform: state
+      entity_id: input_select.trash_pickup_day_2
     action:
     - service: mqtt.publish
       data_template:
         topic: "/home/trashpickupday"
         retain: true
-        payload: '{{ states.input_select.trash_pickup_day.state }}'
+        payload: '{{ states.input_select.trash_pickup_day_1.state }}'
+#  TODO: Add payload for trash_pickup_day_2
 
   - alias: Recycle Pickup Day Changed
     initial_state: true
@@ -302,8 +322,8 @@ automation:
           minutes: 1
       - service: input_select.select_option
         data_template:
-          entity_id: input_select.trash_pickup_day
-          option: "{{states.sensor.trash_pickup_day.state}}"
+          entity_id: input_select.trash_pickup_day_1
+          option: "{{states.sensor.trash_pickup_day_1.state}}"
       - service: input_select.select_option
         data_template:
           entity_id: input_select.recycle_pickup_day
@@ -424,8 +444,8 @@ automation:
         entity_id: input_boolean.trash_reminders
       - service: input_select.select_option
         data_template:
-          entity_id: input_select.trash_pickup_day
-          option: "{{states.sensor.trash_pickup_day.state}}"
+          entity_id: input_select.trash_pickup_day_1
+          option: "{{states.sensor.trash_pickup_day_1.state}}"
       - service: input_select.select_option
         data_template:
           entity_id: input_select.recycle_pickup_day

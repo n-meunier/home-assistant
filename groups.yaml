@@ -5,7 +5,7 @@ default_view:
   name: Home
   view: yes
   entities:
-    - sun.sun
+    - group.weather
     - group.security
     - group.desk
     - weather.openweathermap
@@ -25,6 +25,8 @@ sensor_view:
     - group.home_devices
     - group.trash_schedule
     - group.recycle_schedule
+    - group.date_time
+    - group.trash_and_recycle_automations
 
 #######################################
 #          Sensors groups             #
