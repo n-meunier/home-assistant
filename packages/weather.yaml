@@ -15,6 +15,8 @@ group:
       - sensor.weather_temperature
       - sensor.weather_daily_low_temperature
       - sensor.weather_daily_high_temperature
+      - sensor.weather_apparent_temperature
+      - sensor.weather_precip_probability
       - sensor.weather_precip_intensity
       - sensor.weather_humidity
 #      - weather.melbourne_forecast
@@ -33,9 +35,9 @@ sensor:
 #      - nearest_storm_bearing
 #      - precip_type
       - precip_intensity
-#      - precip_probability
+      - precip_probability
       - temperature
-#      - apparent_temperature
+      - apparent_temperature
 #      - dew_point
 #      - wind_speed
 #      - wind_bearing

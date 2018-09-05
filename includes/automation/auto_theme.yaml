@@ -41,7 +41,7 @@
   action:
   - service: frontend.set_theme
     data:
-      name: darkblue
+      name: midnight
 
 ############################################################
 #
@@ -72,4 +72,4 @@
   action:
   - service: frontend.set_theme
     data:
-      name: darkblue
+      name: midnight

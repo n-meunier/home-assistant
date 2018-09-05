@@ -16,49 +16,11 @@ homeassistant:
   customize: !include customize.yaml
 
 # Show links to resources in log and frontend
-# introduction:
+#introduction:
 
 # Enables the frontend
 frontend:
-  themes:
-    darkblue:
-      primary-color: "#396FB6"
-      light-primary-color: "#77a0d4"
-      dark-primary-color: "#3539ce"
-      text-primary-color: "#ffffff"
-      primary-background-color: "#37464f"
-      sidebar-text_-_background: "#3c4348"
-      paper-card-background-color: "#263137"
-      paper-card-header-color: "var(--text-primary-color)"
-      secondary-background-color: "var(--primary-background-color)"
-      primary-text-color: "var(--text-primary-color)"
-      secondary-text-color: "var(--primary-color)"
-      paper-listbox-background-color: "var(--sidebar-text_-_background)"
-      paper-toggle-button-checked-ink-color: "var(--dark-primary-color)"
-      paper-toggle-button-checked-button-color: "var(--dark-primary-color)"
-      paper-toggle-button-checked-bar-color: "var(--dark-primary-color)"
-      paper-slider-knob-color: "var(--primary-color)"
-      paper-slider-knob-start-color: "var(--primary-color)"
-      paper-slider-pin-color: "var(--primary-color)"
-      paper-slider-active-color: "var(--primary-color)"
-      paper-slider-secondary-color: "var(--light-primary-color)"
-      paper-slider-container-color: "var(--sidebar-text_-_background)"
-      paper-progress-secondary-color: "var(--sidebar-text_-_background)"
-      paper-item-selected_-_background-color: "var(--primary-color)"
-      paper-item-icon_-_color: "var(--text-primary-color)"
-      paper-item-icon-color: "var(--text-primary-color)"
-      paper-item-icon-active-color: "var(--primary-color)"
-      paper-grey-50: "var(--sidebar-text_-_background)"
-      paper-grey-200: "var(--primary-background-color)"
-      label-badge-background-color: "var(--sidebar-text_-_background)"
-      label-badge-text-color: "var(--text-primary-color)"
-      label-badge-red: "var(--primary-color)"
-      label-badge-blue: "var(--light-primary-color)"
-      label-badge-green: "var(--dark-primary-color)"
-      label-badge-yellow: "var(--text-primary-color)"
-      label-badge-grey: "var(--paper-grey-500)"
-      table-row-background-color: "var(--paper-card-background-color)"
-      table-row-alternative-background-color: "var(--sidebar-text_-_background)"
+  themes: !include themes.yaml
 
 # Enables configuration UI
 config:
@@ -87,10 +49,6 @@ conversation:
 # Enables support for tracking state changes over time
 history:
 
-# Tracked history is kept for 10 days
-recorder:
-  purge_keep_days: 10
-
 # View all events in a logbook
 logbook:
 
@@ -103,17 +61,6 @@ sun:
 # Weather prediction
 sensor:
   - platform: yr
-weather:
-  - platform: openweathermap
-    api_key: !secret key_owm
-    monitored_conditions:
-      - weather
-      - temperature
-      - wind_speed
-      - humidity
-      - clouds
-      - rain
-      - snow
 
 # Text to speech
 tts:
@@ -122,27 +69,12 @@ tts:
 # Cloud
 cloud:
 
-# Device Tracking
-# MQTT (Local Broker)
-mqtt:
-#  broker: !secret local_mqtt_broker
-#  port: !secret local_mqtt_port
-#  username: !secret local_mqtt_username
-#  password: !secret local_mqtt_password
-
-#   Owntracks
+# Device tracking
 device_tracker:
-## MQTT / Zanzito based device tracking
-#  - platform: mqtt_json
-#    devices:
-#      USER1_phone: zanzito/trent/location
-# NMAP Based Device Tracking
   - platform: nmap_tracker
     hosts: !secret hosts_device_tracker
     exclude:
      - !secret exclude_device_tracker
-  - platform: bluetooth_tracker
-  - platform: owntracks
 
 xiaomi_aqara:
   discovery_retry: 5
@@ -153,23 +85,10 @@ xiaomi_aqara:
       - host: !secret host_xiaomi_aqara
         mac: !secret mac_xiaomi_aqara
         key: !secret key_xiaomi_aqara
-light:
-  - platform: yeelight
-    devices:
-      !secret host_bedside_lamp:
-        name: Bedside Lamp
-        transition: 1000
-        use_music_mode: True # default to False
-        save_on_change: True # default to True
 
+# Plex
 media_player:
   - platform: plex
-    entity_namespace: 'plex'
-    include_non_clients: true
-    scan_interval: 5
-    show_all_controls: true
-    use_custom_entity_ids: true
-    use_episode_art: true
 
 #######################################
 #          Includes                   #

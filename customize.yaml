@@ -1,3 +1,30 @@
+device_tracker.router_lan:
+  friendly_name: Router
+  icon: mdi:router-wireless
+device_tracker.fire_stick:
+  friendly_name: Fire Stick
+  icon: mdi:fire
+device_tracker.ps4:
+  friendly_name: PS4
+  icon: mdi:playstation
+device_tracker.gateway:
+  friendly_name: Gateway
+  icon: mdi:adjust
+device_tracker.ac_gateway:
+  friendly_name: A/C Gateway
+  icon: mdi:air-conditioner
+device_tracker.nmeunier_phone:
+  friendly_name: My Phone
+  icon: mdi:cellphone-android
+device_tracker.nmeunier_iphone:
+  friendly_name: My Iphone
+  icon: mdi:cellphone-iphone
+device_tracker.nmeunier_mac:
+  friendly_name: My Computer
+  icon: mdi:laptop-mac
+device_tracker.nmeunier_tablet:
+  friendly_name: My Tablet
+  icon: mdi:tablet-android
 sensor.temperature_indoor:
   friendly_name: Indoor Temperature
   icon: mdi:thermometer
@@ -23,32 +50,3 @@ binary_sensor.switch:
   friendly_name: Switch
 light.gateway_light:
   friendly_name: Gateway Light
-light.yeelight_bedside_REDACTED:
-  friendly_name: Bedside Lamp
-device_tracker.USER1_phone:
-  friendly_name: My Phone
-  icon: mdi:cellphone-android
-device_tracker.USER1_mac:
-  friendly_name: My Computer
-  icon: mdi:laptop-mac
-device_tracker.USER1_tablet:
-  friendly_name: My Tablet
-  icon: mdi:tablet-android
-device_tracker.ac_gateway:
-  friendly_name: A/C Gateway
-  icon: mdi:air-conditioner
-device_tracker.gateway:
-  friendly_name: Gateway
-  icon: mdi:adjust
-device_tracker.fire_stick:
-  friendly_name: Fire Stick
-  icon: mdi:fire
-device_tracker.ps4:
-  friendly_name: PS4
-  icon: mdi:playstation
-device_tracker.bedside_lamp:
-  friendly_name: Bedside Lamp
-  icon: mdi:lamp
-device_tracker.router_lan:
-  friendly_name: Router
-  icon: mdi:router-wireless
